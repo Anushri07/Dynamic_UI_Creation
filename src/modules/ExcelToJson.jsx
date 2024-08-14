@@ -31,7 +31,7 @@ const ExcelToJson = () => {
 
 
   const sendToBackend = () => {
-    axios.post('http://localhost:5000/api/upload-json', jsonData)
+    axios.post('http://localhost:9000/api/user/upload-json', jsonData)
       .then((response) => {
         console.log('Data sent successfully:', response.data);
       })

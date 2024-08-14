@@ -1,6 +1,5 @@
 import React from 'react';
-import Routes from './routes.js'
-
+import Router from './routes'
 function App() {
   const formData = [/*... your form data */];
 
@@ -8,8 +7,7 @@ function App() {
   return (
     <div>
       <h1>Dynamic Form</h1>
-      <Routes />
-      {/* <DynamicForm formData={formData} /> */}
+      <Router />
     </div>
   );
 }

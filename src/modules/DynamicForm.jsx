@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import ReactDOM from 'react-dom'
 
 
-const DynamicForm = ({formData}) => {
+const Form = ({formData}) => {
   const [formValues, setFormValues] = useState({})
 
 
@@ -91,7 +91,7 @@ const DynamicForm = ({formData}) => {
 
 
 // Render the DynamicForm component with formData
-const App = () => {
+const DynamicForm = () => {
     const formData = [
         {field: 'userName', elementType: 'Textbox', size: 100, isRequired: true},
         {field: 'fullName', elementType: 'Textbox', size: 100, isRequired: true},
@@ -102,13 +102,11 @@ const App = () => {
       ]
   return (
     <div>
-      <DynamicForm formData={formData} />
+        {/* <h1>Form</h1> */}
+      <Form formData={formData} />
     </div>
   )
 }
 
 
-export default App
-
-
-ReactDOM.render(<App />, document.getElementById('root'))
+export default DynamicForm

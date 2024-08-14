@@ -1,10 +1,15 @@
+// index.js or main.js
+import React from 'react';
+import ReactDOM from 'react-dom/client'; // Import from 'react-dom/client'
+import App from './App'; // Import your main App component
 
+// Find your root container in the HTML
+const container = document.getElementById('root');
 
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App />);
+// Create a root and render the app
+const root = ReactDOM.createRoot(container); // Create a root
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
