@@ -1,19 +1,21 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DynamicForm from './modules/DynamicForm';
 import ExcelToJson from './modules/ExcelToJson';
-import { lazy, Suspense } from "react";
-
-// If your components are large and you want to lazy load them
-// const DynamicForm = lazy(() => import('./modules/DynamicForm'));
-// const ExcelToJson = lazy(() => import('./modules/ExcelToJson'));
+import { Suspense } from "react";
+import Navbar from "./modules/NavBar";
+import List from "./modules/List";
+import EditUserModal from "./modules/EditUserModal";
 
 const Router = (props) => {
   return (
     <BrowserRouter>
       <Suspense fallback={<div>Pages are loading...</div>}>
+        <Navbar />
         <Routes>
           <Route path="/" element={<ExcelToJson />} />
           <Route path="/dynamicForm" element={<DynamicForm />} />
+          <Route path="/list" element={<List />} />
+          <Route path="/edit/:id" element={<EditUserModal/>} />
         </Routes>
       </Suspense>
     </BrowserRouter>

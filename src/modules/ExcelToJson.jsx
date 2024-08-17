@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import axios from 'axios';
-
+import './ExcelToJson.css';
 
 const ExcelToJson = () => {
   const [jsonData, setJsonData] = useState(null);
+  const [fileInputKey, setFileInputKey] = useState(Date.now());
 
 
   const handleFileUpload = (event) => {
@@ -17,10 +18,10 @@ const ExcelToJson = () => {
       const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
       const json = XLSX.utils.sheet_to_json(firstSheet);
       setJsonData(json);
+      
     };
     reader.readAsArrayBuffer(file);
   };
-
 
   const downloadJsonFile = () => {
     const jsonBlob = new Blob([JSON.stringify(jsonData, null, 2)], {
@@ -29,33 +30,35 @@ const ExcelToJson = () => {
     saveAs(jsonBlob, 'data.json');
   };
 
-
   const sendToBackend = () => {
-    axios.post('http://localhost:9000/api/user/upload-json', jsonData)
+    axios.post('http://localhost:9000/api/excel/upload-json', jsonData)
       .then((response) => {
         console.log('Data sent successfully:', response.data);
+        setJsonData(null);
+        setFileInputKey(Date.now());
       })
       .catch((error) => {
         console.error('Error sending data:', error);
       });
   };
 
-
   return (
-    <div>
-      <input type="file" accept=".xlsx, .xls" onChange={handleFileUpload} />
+    <div className="excel-to-json-container">
+      <input
+        key={fileInputKey}
+        type="file"
+        accept=".xlsx, .xls"
+        onChange={handleFileUpload}
+        className="file-input"
+      />
       {jsonData && (
-        <div>
-          {/* <pre>{JSON.stringify(jsonData, null, 2)}</pre> */}
-          <button onClick={downloadJsonFile}>Download JSON</button>
-          <button onClick={sendToBackend}>Send to Backend</button>
+        <div className="button-container">
+          <button onClick={downloadJsonFile} className="button">Download JSON</button>
+          <button onClick={sendToBackend} className="button">Send to Backend</button>
         </div>
       )}
     </div>
   );
 };
 
-
 export default ExcelToJson;
-
-
